@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row header">
+        <div class="col-2" style="padding-left: 38px;">Id</div>
+        <div class="col-3">Work Item Type</div>
+        <div class="col-3">Title</div>
+        <div class="col-2">Tags</div>
+        <div class="col-2">State</div>
+    </div>
+</div>
+<div class="container">
+    <div *ngFor="let workItem of workItems" class="row details">
+        <div [ngClass]="!workItem.hasChildren?'':workItem.isOpen?'bi-chevron-down':'bi-chevron-right'" class="col-2 bi" (click)="workItem.hasChildren && open(workItem)">
+            <span class="work-item-field"> <i class="bi" [ngClass]="getIcon(workItem)"></i> {{ workItem.id }}</span>
+        </div>
+        <div class="col-3">{{ workItem.workItemType }}</div>
+        <div class="col-3">{{ workItem.title }}</div>
+        <div class="col-2">{{ workItem.tags }}</div>
+        <div class="col-2">{{ workItem.state }}</div>
+        <div *ngIf="workItem.isOpen" class="work-items">
+            <div class="border" style="margin-left: 17px;"><app-work-item-table [workItems]="workItem.children"></app-work-item-table></div>
+            
+        </div>
+    </div>
+</div>
